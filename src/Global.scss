@@ -1,0 +1,68 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	width: 100vw;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+		"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	overflow: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+	::-webkit-scrollbar {
+		display: none;
+	}
+	user-select: none;
+	-ms-overflow-style: none;
+}
+
+
+:focus {
+	outline: 2px solid lightblue;
+}
+
+// toastify css override
+.Toastify__toast {
+	top: 10% !important;
+	margin-top: 3% !important;
+	min-height: 32px !important;
+	padding: 4px !important;
+	width: 75%;
+	margin: auto;
+}
+.Toastify__toast-body {
+	text-align: center;
+	width: 100%;
+}
+
+// TRANSITIONS
+// fade
+.fade-enter {
+	opacity: 0;
+}
+.fade-enter-active {
+	opacity: 1;
+	transition: opacity 300ms ease-in;
+}
+.fade-exit {
+	opacity: 1;
+}
+.fade-exit-active {
+	opacity: 0;
+	transition: opacity 300ms ease-in;
+}
+
+// slide-fade
+.slide-fade-enter {
+	transform: translateY(15px);
+	opacity: 0;
+}
+.slide-fade-enter-active,
+.slide-fade-exit-active {
+	transition: all 0.3s ease;
+}
+.slide-fade-exit {
+	transform: translateY(-10px);
+	opacity: 0;
+}

@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import "./Global.scss";
+import "react-toastify/dist/ReactToastify.css";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import Main from "./views/MiniGame";
+import rootStore from "./store";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	try {
+		(window as any).js_invoke
+			? (window as any).js_invoke.changeOrientation(1)
+			: (window as any).webkit.messageHandlers.changeOrientation.postMessage(
+					1
+			  );
+	} catch {}
+
+	return (
+		<Provider store={rootStore}>
+			<Router>
+				<Switch>
+					<Route path="/">
+						<Main />
+					</Route>
+				</Switch>
+			</Router>
+		</Provider>
+	);
 }
 
 export default App;

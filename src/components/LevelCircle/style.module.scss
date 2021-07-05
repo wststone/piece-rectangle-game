@@ -1,0 +1,13 @@
+.level_circle__completed {
+	display: grid;
+	place-items: center;
+	border-radius: 50%;
+	background-color: #6cbff7;
+	width: 60px;
+	height: 60px;
+	color: white;
+}
+.level_circle__uncompleted {
+	@extend .level_circle__completed;
+	background-color: #e2e2e7;
+}

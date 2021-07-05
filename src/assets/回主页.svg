@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>回主页</title>
+    <defs>
+        <path d="M29.3586518,17.6439731 L21.775512,9.75791986 C21.3114615,9.27375643 20.6698833,9 19.999244,9 C19.3286046,9 18.6870265,9.27375643 18.2229759,9.75791986 L10.6418967,17.6439731 C9.85885511,18.4682275 9.95982626,19.1626617 10.0875857,19.455272 C10.312317,19.9645392 10.8326057,20.2778668 11.3878469,20.2383136 L12.5005902,20.2383136 L12.5005902,26.3048255 C12.5005902,27.6813302 13.4896954,28.983652 14.8971097,28.983652 L18.1240654,28.983652 L18.1240654,22.5585896 C18.1240654,21.8703372 18.0210336,21.4870589 18.7237104,21.4870589 L21.2747775,21.4870589 C21.979515,21.4870589 21.8744226,21.8703372 21.8744226,22.5585896 L21.8744226,28.9795308 L25.1034389,28.9795308 C26.5087925,28.9795308 27.4999583,27.6813302 27.4999583,26.3007042 L27.4999583,20.2383136 L28.610641,20.2383136 C29.1658823,20.2778668 29.6861709,19.9645392 29.9109022,19.455272 C30.0407223,19.1626617 30.1416935,18.4579243 29.3586518,17.6439731 Z" id="path-1"></path>
+        <filter x="-15.0%" y="-15.0%" width="130.0%" height="130.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="2.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 0.533333333   0 0 0 0 0.0705882353  0 0 0 0.2 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="补充" transform="translate(-30.000000, -548.000000)">
+            <g id="回主页" transform="translate(30.000000, 548.000000)">
+                <circle id="椭圆形" fill="#FF8812" cx="20" cy="20" r="20"></circle>
+                <g id="路径" fill-rule="nonzero">
+                    <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

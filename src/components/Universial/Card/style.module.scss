@@ -1,0 +1,24 @@
+.card {
+	// @media (min-width: 500) {
+		
+	// }
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 330px;
+	height: 420px;
+	z-index: 2;
+	background-color: white;
+	overflow: hidden;
+	&__rounded {
+		border-radius: 20px;
+	}
+	&__scroll {
+		overflow: scroll;
+	}
+}
+
+.card_content {
+	position: relative;
+}

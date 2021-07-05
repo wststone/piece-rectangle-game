@@ -1,0 +1,24 @@
+.difficulty_option {
+	font-family: PingFangSC, sans-serif;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.25em;
+	font-weight: bold;
+	color: white;
+}
+
+.__completed_text {
+	position: absolute;
+	display: inline-flex;
+	font-size: 14px;
+	font-weight: bold;
+	min-width: 60px;
+	color: rgba(69, 182, 133, 1);
+	left: 105%;
+}
+.__uncompleted_text {
+	@extend .__completed_text;
+	color: #9f9eae;
+}
