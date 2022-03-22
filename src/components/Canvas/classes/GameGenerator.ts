@@ -2,11 +2,9 @@ import { ILEVELS, DEFAULT_LEVEL, DifficultyName } from "./utils/constants";
 import { BLOCK_IMAGE_SRCS } from "../方块";
 import { PROBLEMS, SHAPES } from "./utils/block-data";
 import Rectangle from "./Rectangle";
-import BGM from "../音乐/bgm1.mp3";
 
 interface IGameOptions {
 	levelNum: number;
-	levelName: DifficultyName;
 	canvas: HTMLCanvasElement;
 }
 
@@ -25,20 +23,19 @@ export default class GameGenerator {
 		return this.GAME_LEVEL.levelNum;
 	}
 	get isWon(): boolean {
-		return this.rectangle?.blockTogether;
+		return !!this.rectangle?.blockTogether;
 	}
 
 	//Only called once when initiating the canvas
 	initGame(options: IGameOptions) {
 		this.canvas = options.canvas;
-		this.loadLevel(options.levelName, options.levelNum);
+		this.loadLevel(options.levelNum);
 	}
 
 	async loadResources() {
 		this.loadingResources = true;
 		this.LEVEL_DATA = this.parseLevelArray(PROBLEMS, SHAPES);
 		await this.getBlockImages();
-		await this.getBackgroundMusic();
 		this.loadingResources = false;
 	}
 
@@ -95,12 +92,6 @@ export default class GameGenerator {
 		return parsedResult;
 	}
 
-	private getLevelIndex(levelName: DifficultyName, levelNum: number): number {
-		if (levelName === "困难") return levelNum + 100;
-		else if (levelName === "中等") return levelNum + 50;
-		else return levelNum;
-	}
-
 	private generateSolution(totalSquare: number) {
 		this.Solution = [];
 		const half = Math.ceil(totalSquare);
@@ -123,21 +114,52 @@ export default class GameGenerator {
 		}
 		for (const solution of Array.from(tempSolutionSet)) {
 			const [x, y] = solution.split(",");
-			this.Solution.push([+x, +y]);
+			this.Solution.push([Number(x), Number(y)]);
 		}
 	}
 
-	loadLevel(levelName: DifficultyName | string, level: number) {
-		const index =
-			this.getLevelIndex(levelName as DifficultyName, level) - 1;
-		this.GAME_LEVEL = Object.assign(
-			this.GAME_LEVEL,
-			this.LEVEL_DATA![index]
-		);
-		if (this.Previous_Rectangle && this.rectangle) {
-			this.rectangle.unbindCanvas();
-			this.rectangle = null;
-		}
+	loadLevel(level: number) {
+		this.GAME_LEVEL = {
+			levelName: "简单",
+			levelNum: 1,
+			totalSquareNum: 16,
+			totalBlocks: 5,
+			blockCoordinates: [
+				[3, 6],
+				[0, 0],
+				[0, 4],
+				[7, 4],
+				[4, 6],
+			],
+			blockShapes: [
+				[
+					[0, 0],
+					[0, 1],
+					[1, 1],
+					[2, 1],
+				],
+				[
+					[0, 0],
+					[1, 0],
+					[2, 0],
+				],
+				[
+					[0, 1],
+					[0, 2],
+					[1, 1],
+					[2, 0],
+					[2, 1],
+				],
+				[
+					[0, 0],
+					[0, 1],
+				],
+				[
+					[0, 0],
+					[1, 0],
+				],
+			],
+		};
 		this.generateSolution(this.GAME_LEVEL.totalSquareNum);
 		this.rectangle = new Rectangle(
 			this.canvas!,
@@ -146,7 +168,6 @@ export default class GameGenerator {
 			this.GAME_LEVEL.blockShapes,
 			this.Solution
 		);
-		this.Previous_Rectangle = this.rectangle;
 	}
 
 	endGame() {
@@ -160,39 +181,12 @@ export default class GameGenerator {
 		}
 	}
 
-	muteAudio() {
-		this.BGM.pause();
-	}
-
-	playAudio() {
-		this.BGM.play();
-	}
-
-	private async getBackgroundMusic() {
-		this.BGM = await this._loadAudio();
-		this.BGM.loop = true;
-		this.BGM.muted = true;
-		this.BGM.autoplay= true;
-		this.BGM.play()
-		this.BGM.muted = false;
-	}
-
-	private _loadAudio(): Promise<HTMLAudioElement> {
-		const temp_audio = new Audio();
-		temp_audio.src = BGM;
-		return new Promise((resolve, reject) => {
-			temp_audio.oncanplay = () => resolve(temp_audio);
-			temp_audio.onerror = () =>
-				reject(() => alert("读取音频数据错误！"));
-		});
-	}
-
 	private _loadImage(imgSrc: string): Promise<HTMLImageElement> {
 		const temp_img = new Image();
 		temp_img.src = imgSrc;
 		return new Promise((resolve, reject) => {
 			temp_img.onload = () => resolve(temp_img);
-			temp_img.onerror = () => reject(() => alert("读取图片数据错误！"));
+			temp_img.onerror = () => reject(() => {});
 		});
 	}
 }

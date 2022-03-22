@@ -147,9 +147,8 @@ export default class Rectangle {
 				tempY: number = 0,
 				keepMoving: boolean = true;
 			const lineToRoutes: [number, number][] = [];
-			const { uniqueCordSet, uniqueCordList } = this.getAllMovesXY(
-				shapeList
-			);
+			const { uniqueCordSet, uniqueCordList } =
+				this.getAllMovesXY(shapeList);
 			const routeStartXY = uniqueCordList[0];
 			const [startX, startY] = routeStartXY;
 
@@ -497,11 +496,15 @@ export default class Rectangle {
 
 	private checkGameWon(
 		solutionList: [number, number][],
-		widthHeight: [number, number]
+		widthHeight: [number, number],
+		onGameWon?: () => void
 	): boolean {
 		const [width, height] = widthHeight;
 		for (const [_width, _height] of solutionList) {
-			if (_width === width && _height === height) return true;
+			if (_width === width && _height === height) {
+				onGameWon && onGameWon();
+				return true;
+			}
 		}
 		return false;
 	}

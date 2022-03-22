@@ -1,43 +1,36 @@
-import { useSelector } from "react-redux";
-import {
-	currentLevelNumGetter,
-	currentLevelNameGetter,
-} from "@store/modules/GameLevelStatus";
 import styles from "./style.module.scss";
 import {
 	FC,
 	useRef,
 	useEffect,
-	useContext,
 	useCallback,
 	HTMLAttributes,
 } from "react";
-import GameContext from "@root/contexts/GameContext";
-import {
-	CANVAS_WIDTH,
-	CANVAS_HEIGHT,
-	DifficultyName,
-} from "./classes/utils/constants";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "./classes/utils/constants";
+import GameGenerator from "./classes/GameGenerator";
 
 const Canvas: FC<HTMLAttributes<HTMLCanvasElement>> = props => {
-	const { setGameWon, Game } = useContext(GameContext);
+	const GameRef = useRef<GameGenerator>(new GameGenerator());
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const levelName = useSelector(currentLevelNameGetter) as DifficultyName;
-	const levelNum = useSelector(currentLevelNumGetter);
 	const checkWin = useCallback(() => {
-		if (Game.isWon) setGameWon(true);
-	}, [Game.isWon, setGameWon]);
-	useEffect(() => {
-		if (canvasRef.current) {
-			const canvas = canvasRef.current;
-			Game.initGame({
-				levelName,
-				levelNum,
-				canvas: canvas,
-			});
+		if (GameRef.current.isWon) {
+			// dosomething
 		}
-		return () => Game.endGame();
-	}, [Game, levelName, levelNum]);
+	}, []);
+	useEffect(() => {
+		(async function () {
+			const Game = GameRef.current;
+			await Game.loadResources();
+			// Game.loadLevel(0);
+			if (canvasRef.current) {
+				const canvas = canvasRef.current;
+				Game.initGame({
+					levelNum: 0,
+					canvas: canvas,
+				});
+			}
+		})();
+	}, []);
 
 	return (
 		<canvas
